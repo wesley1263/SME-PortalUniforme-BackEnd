@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework_swagger.views import get_swagger_view
 from sme_uniforme_apps.core.api.urls import urlpatterns as core_url
+from rest_framework_jwt.views import verify_jwt_token, refresh_jwt_token,obtain_jwt_token
 
 schema_view = get_swagger_view(title="Portal SME Uniformes")
 
@@ -11,6 +12,9 @@ urlpatterns = [
                   # Django Admin, use {% url 'admin:index' %}
                   path(settings.ADMIN_URL, admin.site.urls),
                   path("docs/", schema_view),
+                  path("api-token-auth/", obtain_jwt_token),
+                  path("refresh-token-auth/", refresh_jwt_token),
+                  path("verify-token-auth/", verify_jwt_token),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += core_url
