@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import (Uniforme)
+
+
+@admin.register(Uniforme)
+class UniformeAdmin(admin.ModelAdmin):
+    list_display = ('nome',)
+    ordering = ('nome',)
+    search_fields = ('nome',)
