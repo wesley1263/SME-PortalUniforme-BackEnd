@@ -87,6 +87,10 @@ class Proponente(ModeloBase):
     def __str__(self):
         return f"{self.responsavel} - {self.email} - {self.telefone}"
 
+    @property
+    def protocolo(self):
+        return f'{self.uuid.urn[9:17].upper()}'
+
     class Meta:
         verbose_name = "Proponente"
         verbose_name_plural = "Proponentes"

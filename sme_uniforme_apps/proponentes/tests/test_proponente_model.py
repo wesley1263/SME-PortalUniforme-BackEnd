@@ -1,4 +1,5 @@
 import pytest
+
 from django.contrib import admin
 from model_bakery import baker
 
@@ -55,6 +56,12 @@ def test_admin():
     model_admin = ProponenteAdmin(Proponente, admin.site)
     # pylint: disable=W0212
     assert admin.site._registry[Proponente]
-    assert model_admin.list_display == ('cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em')
+    assert model_admin.list_display == ('protocolo', 'cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em')
     assert model_admin.ordering == ('-alterado_em',)
-    assert model_admin.search_fields == ('cnpj', 'razao_social', 'responsavel')
+    assert model_admin.search_fields == ('uuid', 'cnpj', 'razao_social', 'responsavel')
+
+
+def test_protocolo(proponente):
+    protocolo = proponente.uuid.urn[9:17].upper()
+    assert proponente.protocolo == protocolo
+
