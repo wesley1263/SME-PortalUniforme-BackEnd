@@ -25,3 +25,6 @@ coreapi==2.3.3  # https://github.com/core-api/python-client
 djangorestframework-jwt # https://jpadilla.github.io/django-rest-framework-jwt/
 #django-use-email-as-username # https://github.com/jmfederico/django-use-email-as-username
 
+# Para validação e formatação de CNPJ e CPF
+# https://github.com/poliquin/brazilnum
+brazilnum==0.8.8
