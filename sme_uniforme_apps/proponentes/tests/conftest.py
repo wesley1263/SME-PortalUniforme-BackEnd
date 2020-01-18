@@ -1,4 +1,7 @@
 import pytest
+
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 from model_bakery import baker
 
 
@@ -40,4 +43,17 @@ def loja_fisica(proponente):
         complemento='loja 1',
         telefone='(11) 4565-9876'
 
+    )
+
+
+@pytest.fixture
+def arquivo():
+    return SimpleUploadedFile(f'anexo_teste.txt', bytes(f'CONTEUDO TESTE TESTE TESTE', encoding="utf-8"))
+
+
+@pytest.fixture
+def anexo(proponente, arquivo):
+    return baker.make(
+        'Anexo',
+        arquivo=arquivo
     )
