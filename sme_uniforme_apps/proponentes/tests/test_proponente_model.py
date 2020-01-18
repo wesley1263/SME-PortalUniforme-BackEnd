@@ -4,7 +4,7 @@ from django.contrib import admin
 from model_bakery import baker
 
 from ..admin import ProponenteAdmin
-from ..models import Proponente, OfertaDeUniforme
+from ..models import Proponente
 
 pytestmark = pytest.mark.django_db
 
@@ -23,16 +23,6 @@ def proponente():
         email='teste@teste.com',
         responsavel='Fulano',
     )
-
-
-@pytest.fixture
-def uniforme_calca():
-    return baker.make('Uniforme', nome='Calça')
-
-
-@pytest.fixture
-def uniforme_camisa():
-    return baker.make('Uniforme', nome='Camisa')
 
 
 def test_instance_model(proponente):
@@ -74,18 +64,4 @@ def test_admin():
 def test_protocolo(proponente):
     protocolo = proponente.uuid.urn[9:17].upper()
     assert proponente.protocolo == protocolo
-
-
-def test_oferta_uniforme(proponente, uniforme_calca):
-    oferta = baker.make(
-        OfertaDeUniforme,
-        proponente=proponente,
-        uniforme=uniforme_calca,
-        preco=100.35
-    )
-
-    assert isinstance(oferta, OfertaDeUniforme)
-    assert oferta.proponente == proponente
-    assert oferta.uniforme == uniforme_calca
-    assert oferta.preco == 100.35
 

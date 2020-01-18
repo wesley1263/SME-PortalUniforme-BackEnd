@@ -14,3 +14,17 @@ class ProponenteAdmin(admin.ModelAdmin):
     ordering = ('-alterado_em',)
     search_fields = ('uuid', 'cnpj', 'razao_social', 'responsavel')
     inlines = [UniformesFornecidosInLine]
+
+
+@admin.register(OfertaDeUniforme)
+class OfertaDeUniformeAdmin(admin.ModelAdmin):
+    @staticmethod
+    def protocolo(oferta):
+        return oferta.proponente.protocolo
+
+    list_display = ('protocolo', 'proponente',  'uniforme', 'preco')
+    ordering = ('proponente',)
+    search_fields = ('proponente__uuid', 'uniforme__nome',)
+    list_filter = ('uniforme', )
+
+
