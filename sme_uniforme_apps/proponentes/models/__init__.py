@@ -1,1 +1,1 @@
-from .proponentes import Proponente
+from .proponentes import Proponente, OfertaDeUniforme
