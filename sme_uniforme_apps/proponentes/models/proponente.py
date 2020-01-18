@@ -4,6 +4,8 @@ from django.core import validators
 from .validators import phone_validation, cep_validation, cnpj_validation
 from sme_uniforme_apps.core.models_abstracts import ModeloBase
 
+from ...core.models.meio_de_recebimento import MeioDeRecebimento
+
 
 class Proponente(ModeloBase):
 
@@ -82,7 +84,7 @@ class Proponente(ModeloBase):
 
     responsavel = models.CharField("Responsável", max_length=255, blank=True, null=True)
 
-    criado_em = models.DateTimeField("Criado em", editable=False, auto_now_add=True)
+    meios_de_recebimento = models.ManyToManyField(MeioDeRecebimento, related_name='proponentes_que_aceitam')
 
     def __str__(self):
         return f"{self.responsavel} - {self.email} - {self.telefone}"
