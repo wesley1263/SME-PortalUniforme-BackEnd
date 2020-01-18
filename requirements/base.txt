@@ -28,3 +28,7 @@ djangorestframework-jwt # https://jpadilla.github.io/django-rest-framework-jwt/
 # Para validação e formatação de CNPJ e CPF
 # https://github.com/poliquin/brazilnum
 brazilnum==0.8.8
+
+# Para login com e-mail
+# https://github.com/jmfederico/django-use-email-as-username
+django-use-email-as-username==1.1.0
