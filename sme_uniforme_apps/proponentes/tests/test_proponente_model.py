@@ -1,28 +1,11 @@
 import pytest
 
 from django.contrib import admin
-from model_bakery import baker
 
 from ..admin import ProponenteAdmin
 from ..models import Proponente
 
 pytestmark = pytest.mark.django_db
-
-
-@pytest.fixture
-def proponente():
-    return baker.make(
-        'Proponente',
-        cnpj='00.529.476/0001-14',
-        razao_social='Teste',
-        end_logradouro='Rua Teste, 123 apt. 101 Centro',
-        end_cidade='São Paulo',
-        end_uf='SP',
-        end_cep='99999-000',
-        telefone='(99) 99999-9999',
-        email='teste@teste.com',
-        responsavel='Fulano',
-    )
 
 
 def test_instance_model(proponente):

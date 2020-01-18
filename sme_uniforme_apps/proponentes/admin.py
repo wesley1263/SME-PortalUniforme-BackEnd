@@ -1,10 +1,15 @@
 from django.contrib import admin
 
-from .models import (Proponente, OfertaDeUniforme)
+from .models import (Proponente, OfertaDeUniforme, Loja)
 
 
 class UniformesFornecidosInLine(admin.TabularInline):
     model = OfertaDeUniforme
+    extra = 1  # Quantidade de linhas que serão exibidas.
+
+
+class LojasInLine(admin.StackedInline):
+    model = Loja
     extra = 1  # Quantidade de linhas que serão exibidas.
 
 
@@ -13,7 +18,7 @@ class ProponenteAdmin(admin.ModelAdmin):
     list_display = ('protocolo',  'cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em')
     ordering = ('-alterado_em',)
     search_fields = ('uuid', 'cnpj', 'razao_social', 'responsavel')
-    inlines = [UniformesFornecidosInLine]
+    inlines = [UniformesFornecidosInLine, LojasInLine]
 
 
 @admin.register(OfertaDeUniforme)

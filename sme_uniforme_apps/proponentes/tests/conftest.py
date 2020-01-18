@@ -26,3 +26,18 @@ def uniforme_calca():
 @pytest.fixture
 def uniforme_camisa():
     return baker.make('Uniforme', nome='Camisa')
+
+
+@pytest.fixture
+def loja_fisica(proponente):
+    return baker.make(
+        'Loja',
+        proponente=proponente,
+        cep='27600-000',
+        endereco='Rua Teste',
+        bairro='Centro',
+        numero='123',
+        complemento='loja 1',
+        telefone='(11) 4565-9876'
+
+    )
