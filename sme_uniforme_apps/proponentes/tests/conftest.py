@@ -57,3 +57,13 @@ def anexo(proponente, arquivo):
         'Anexo',
         arquivo=arquivo
     )
+
+
+@pytest.fixture
+def oferta_de_uniforme(proponente, uniforme_calca):
+    return baker.make(
+            'OfertaDeUniforme',
+            proponente=proponente,
+            uniforme=uniforme_calca,
+            preco=100.35
+        )

@@ -10,13 +10,8 @@ from ..admin import OfertaDeUniformeAdmin
 pytestmark = pytest.mark.django_db
 
 
-def test_oferta_uniforme(proponente, uniforme_calca):
-    oferta = baker.make(
-        OfertaDeUniforme,
-        proponente=proponente,
-        uniforme=uniforme_calca,
-        preco=100.35
-    )
+def test_oferta_uniforme(oferta_de_uniforme, proponente, uniforme_calca):
+    oferta = oferta_de_uniforme
 
     assert isinstance(oferta, OfertaDeUniforme)
     assert oferta.proponente == proponente

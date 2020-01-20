@@ -1,14 +1,12 @@
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-
 from ...models import Proponente
-
-
-user_model = get_user_model()
+from ...api.serializers.oferta_de_uniforme_serializer import OfertaDeUniformeSerializer
 
 
 class ProponenteSerializer(serializers.ModelSerializer):
+    ofertas_de_uniformes = OfertaDeUniformeSerializer(many=True)
+
     class Meta:
         model = Proponente
         fields = '__all__'
