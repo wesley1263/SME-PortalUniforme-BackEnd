@@ -2,9 +2,12 @@ from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib import admin
+
 from rest_framework_swagger.views import get_swagger_view
-from sme_uniforme_apps.core.api.urls import urlpatterns as core_url
 from rest_framework_jwt.views import verify_jwt_token, refresh_jwt_token,obtain_jwt_token
+
+from sme_uniforme_apps.core.api.urls import urlpatterns as core_url
+from sme_uniforme_apps.proponentes.urls import urlpatterns as proponentes_url
 
 schema_view = get_swagger_view(title="Portal SME Uniformes")
 
@@ -18,6 +21,7 @@ urlpatterns = [
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += core_url
+urlpatterns += proponentes_url
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

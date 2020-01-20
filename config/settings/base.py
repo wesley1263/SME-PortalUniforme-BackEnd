@@ -84,7 +84,7 @@ THIRD_PARTY_APPS = [
     "des",
     "rest_framework_swagger",
     "django_use_email_as_username",
-
+    "django_filters",
 ]
 
 LOCAL_APPS = [
