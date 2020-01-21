@@ -1,10 +1,11 @@
+from drf_base64.serializers import ModelSerializer
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from ...models import Anexo
 
 
-class AnexoSerializer(serializers.ModelSerializer):
+class AnexoSerializer(ModelSerializer):
     class Meta:
         model = Anexo
         fields = '__all__'
@@ -22,4 +23,4 @@ class AnexoCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Anexo
-        exclude = ('id',)
+        exclude = ('id', 'proponente')
