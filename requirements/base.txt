@@ -25,3 +25,17 @@ coreapi==2.3.3  # https://github.com/core-api/python-client
 djangorestframework-jwt # https://jpadilla.github.io/django-rest-framework-jwt/
 #django-use-email-as-username # https://github.com/jmfederico/django-use-email-as-username
 
+# Para validação e formatação de CNPJ e CPF
+# https://github.com/poliquin/brazilnum
+brazilnum==0.8.8
+
+# Para login com e-mail
+# https://github.com/jmfederico/django-use-email-as-username
+django-use-email-as-username==1.1.0
+
+# Para filtros no DRF
+# https://django-filter.readthedocs.io/en/master/#
+django-filter==2.2.0
+
+# https://pypi.org/project/drf_base64/
+drf-base64==2.0

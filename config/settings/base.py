@@ -84,13 +84,14 @@ THIRD_PARTY_APPS = [
     "des",
     "rest_framework_swagger",
     "django_use_email_as_username",
-
+    "django_filters",
 ]
 
 LOCAL_APPS = [
     "sme_uniforme_apps.custom_user.apps.CustomUserConfig",
     "sme_uniforme_apps.robo.apps.RoboConfig",
-    # Your stuff: custom apps go here
+    "sme_uniforme_apps.core.apps.CoreConfig",
+    "sme_uniforme_apps.proponentes.apps.ProponentesConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
