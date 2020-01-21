@@ -6,7 +6,8 @@ from ...core.models.uniforme import Uniforme
 
 
 class OfertaDeUniforme(ModeloBase):
-    proponente = models.ForeignKey(Proponente, on_delete=models.CASCADE, related_name='ofertas_de_uniformes')
+    proponente = models.ForeignKey(Proponente, on_delete=models.CASCADE, related_name='ofertas_de_uniformes',
+                                   blank=True, null=True)
     uniforme = models.ForeignKey(Uniforme, on_delete=models.PROTECT, related_name='proponentes')
     preco = models.DecimalField('Preço', max_digits=9, decimal_places=2, default=0.00)
 

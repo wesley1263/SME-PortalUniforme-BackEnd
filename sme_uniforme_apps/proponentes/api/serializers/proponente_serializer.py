@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from ...models import Proponente, Anexo
-from ...api.serializers.oferta_de_uniforme_serializer import OfertaDeUniformeSerializer
+from ...models import Proponente, Anexo, OfertaDeUniforme
+from ...api.serializers.oferta_de_uniforme_serializer import OfertaDeUniformeSerializer, OfertaDeUniformeCreateSerializer
 from ...api.serializers.loja_serializer import LojaSerializer
 from ...api.serializers.anexo_serializer import AnexoSerializer
 
@@ -24,22 +24,31 @@ class ProponenteCreateSerializer(serializers.ModelSerializer):
     # arquivos_anexos = serializers.ListField(
     #     child=AnexoSerializer()
     # )
+    ofertas_de_uniformes = OfertaDeUniformeCreateSerializer(many=True)
 
     def create(self, validated_data):
-        arquivos_anexos = validated_data.pop('arquivos_anexos', [])
+
+        # arquivos_anexos = validated_data.pop('arquivos_anexos', [])
         meios_de_recebimento_list = validated_data.pop('meios_de_recebimento', [])
+        ofertas_de_uniformes = validated_data.pop('ofertas_de_uniformes')
 
         proponente = Proponente.objects.create(**validated_data)
 
-        tamanho_total_dos_arquivos = 0
-        print('inicio', arquivos_anexos)
-        for anexo in arquivos_anexos:
-            file_size = anexo.get('arquivo').size
-            tamanho_total_dos_arquivos += file_size
-            if tamanho_total_dos_arquivos > 10485760:
-                raise ValidationError("O tamanho total máximo dos arquivos é 10MB")
-            print('Arquivo', anexo.get('arquivo').name, anexo.get('arquivo').size)
-            Anexo.objects.create(proponente=proponente, arquivo=anexo.get("arquivo"))
+        ofertas_lista = []
+        for oferta in ofertas_de_uniformes:
+            oferta_object = OfertaDeUniformeCreateSerializer().create(oferta)
+            ofertas_lista.append(oferta_object)
+        proponente.ofertas_de_uniformes.set(ofertas_lista)
+
+        # tamanho_total_dos_arquivos = 0
+        # print('inicio', arquivos_anexos)
+        # for anexo in arquivos_anexos:
+        #     file_size = anexo.get('arquivo').size
+        #     tamanho_total_dos_arquivos += file_size
+        #     if tamanho_total_dos_arquivos > 10485760:
+        #         raise ValidationError("O tamanho total máximo dos arquivos é 10MB")
+        #     print('Arquivo', anexo.get('arquivo').name, anexo.get('arquivo').size)
+        #     Anexo.objects.create(proponente=proponente, arquivo=anexo.get("arquivo"))
 
         proponente.meios_de_recebimento.set(meios_de_recebimento_list)
 
