@@ -3,7 +3,7 @@ from rest_framework.exceptions import ValidationError
 
 from ...models import Proponente, Anexo, OfertaDeUniforme
 from ...api.serializers.oferta_de_uniforme_serializer import OfertaDeUniformeSerializer, OfertaDeUniformeCreateSerializer
-from ...api.serializers.loja_serializer import LojaSerializer
+from ...api.serializers.loja_serializer import LojaSerializer, LojaCreateSerializer
 from ...api.serializers.anexo_serializer import AnexoSerializer
 
 
@@ -25,12 +25,14 @@ class ProponenteCreateSerializer(serializers.ModelSerializer):
     #     child=AnexoSerializer()
     # )
     ofertas_de_uniformes = OfertaDeUniformeCreateSerializer(many=True)
+    lojas = LojaCreateSerializer(many=True)
 
     def create(self, validated_data):
 
         # arquivos_anexos = validated_data.pop('arquivos_anexos', [])
         meios_de_recebimento_list = validated_data.pop('meios_de_recebimento', [])
         ofertas_de_uniformes = validated_data.pop('ofertas_de_uniformes')
+        lojas = validated_data.pop('lojas')
 
         proponente = Proponente.objects.create(**validated_data)
 
@@ -39,6 +41,12 @@ class ProponenteCreateSerializer(serializers.ModelSerializer):
             oferta_object = OfertaDeUniformeCreateSerializer().create(oferta)
             ofertas_lista.append(oferta_object)
         proponente.ofertas_de_uniformes.set(ofertas_lista)
+
+        lojas_lista = []
+        for loja in lojas:
+            loja_object = LojaCreateSerializer().create(loja)
+            lojas_lista.append(loja_object)
+        proponente.lojas.set(lojas_lista)
 
         # tamanho_total_dos_arquivos = 0
         # print('inicio', arquivos_anexos)

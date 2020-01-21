@@ -13,4 +13,4 @@ class LojaCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Loja
-        exclude = ('id',)
+        exclude = ('id', 'proponente')
