@@ -24,6 +24,7 @@ def test_proponente_serializer(proponente):
     assert proponente_serializer.data['criado_em']
     assert proponente_serializer.data['id']
     assert proponente_serializer.data['ofertas_de_uniformes'] is not None
+    assert proponente_serializer.data['lojas'] is not None
 
 
 def test_proponente_lookup_serializer(proponente):

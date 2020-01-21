@@ -2,10 +2,12 @@ from rest_framework import serializers
 
 from ...models import Proponente
 from ...api.serializers.oferta_de_uniforme_serializer import OfertaDeUniformeSerializer
+from ...api.serializers.loja_serializer import LojaSerializer
 
 
 class ProponenteSerializer(serializers.ModelSerializer):
     ofertas_de_uniformes = OfertaDeUniformeSerializer(many=True)
+    lojas = LojaSerializer(many=True)
 
     class Meta:
         model = Proponente
