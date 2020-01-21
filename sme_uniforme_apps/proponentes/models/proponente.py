@@ -93,6 +93,10 @@ class Proponente(ModeloBase):
     def protocolo(self):
         return f'{self.uuid.urn[9:17].upper()}'
 
+    @property
+    def arquivos_anexos(self):
+        return self.anexos.all()
+
     class Meta:
         verbose_name = "Proponente"
         verbose_name_plural = "Proponentes"
