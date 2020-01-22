@@ -41,3 +41,19 @@ Para instalar o tema do Admin
 ```console
 python manage.py loaddata admin_interface_theme_uswds.json
 ```
+
+### Filas Celery
+**Subir o Celery Worker**
+```console
+celery  -A config worker --loglevel=info
+```
+
+**Subir o Celery Beat**
+```console
+celery  -A config beat --loglevel=info
+```
+
+**Monitorar os processos no celery**
+```console
+flower -A config --port=5555
+```

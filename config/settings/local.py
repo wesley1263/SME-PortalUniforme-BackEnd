@@ -26,9 +26,15 @@ CACHES = {
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
-)
+# EMAIL_BACKEND = env(
+#     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+# )
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+EMAIL_HOST = "localhost"
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+EMAIL_PORT = 1025
+EMAIL_BACKEND = 'des.backends.ConfiguredEmailBackend'
+
 
 # WhiteNoise
 # ------------------------------------------------------------------------------
@@ -56,10 +62,4 @@ INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
 # https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration
 INSTALLED_APPS += ["django_extensions"]  # noqa F405
 # Celery
-# ------------------------------------------------------------------------------
-# http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-always-eager
-CELERY_TASK_ALWAYS_EAGER = True
-# http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-eager-propagates
 CELERY_TASK_EAGER_PROPAGATES = True
-# Your stuff...
-# ------------------------------------------------------------------------------

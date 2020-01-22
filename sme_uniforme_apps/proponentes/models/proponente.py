@@ -1,10 +1,13 @@
 from django.db import models
 from django.core import validators
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from .validators import phone_validation, cep_validation, cnpj_validation
 from sme_uniforme_apps.core.models_abstracts import ModeloBase
 
 from ...core.models.meio_de_recebimento import MeioDeRecebimento
+from ..tasks import enviar_email_confirmacao_cadastro
 
 
 class Proponente(ModeloBase):
@@ -101,3 +104,8 @@ class Proponente(ModeloBase):
         verbose_name = "Proponente"
         verbose_name_plural = "Proponentes"
 
+
+@receiver(post_save, sender=Proponente)
+def contrato_post_save(instance, created, **kwargs):
+    if created and instance and instance.email:
+        enviar_email_confirmacao_cadastro.delay(instance.email, {'protocolo': instance.protocolo})
