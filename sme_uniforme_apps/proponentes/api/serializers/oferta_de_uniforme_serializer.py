@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ...models import OfertaDeUniforme, Proponente
+from ...models import OfertaDeUniforme
 from ....core.models.uniforme import Uniforme
 
 

@@ -6,5 +6,3 @@ class User(BaseUser):
     objects = BaseUserManager()
     validado = models.BooleanField('Validado', default=False,
                                    help_text="Identificar se o cadastro de usuário já foi validado")
-
-

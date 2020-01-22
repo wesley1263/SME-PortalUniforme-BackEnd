@@ -1,8 +1,9 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from ...models import Proponente, Anexo, OfertaDeUniforme
-from ...api.serializers.oferta_de_uniforme_serializer import OfertaDeUniformeSerializer, OfertaDeUniformeCreateSerializer
+from ...models import Proponente, Anexo
+from ...api.serializers.oferta_de_uniforme_serializer import (OfertaDeUniformeSerializer,
+                                                              OfertaDeUniformeCreateSerializer)
 from ...api.serializers.loja_serializer import LojaSerializer, LojaCreateSerializer
 from ...api.serializers.anexo_serializer import AnexoSerializer
 

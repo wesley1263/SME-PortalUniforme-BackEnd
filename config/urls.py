@@ -1,3 +1,5 @@
+from des import urls as des_url
+
 from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
@@ -18,6 +20,7 @@ urlpatterns = [
                   path("api-token-auth/", obtain_jwt_token),
                   path("refresh-token-auth/", refresh_jwt_token),
                   path("verify-token-auth/", verify_jwt_token),
+                  path("django-des/", include(des_url)),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += core_url
