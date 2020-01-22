@@ -63,6 +63,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
+
 DJANGO_APPS = [
     "corsheaders",
     "django.contrib.auth",
@@ -71,9 +72,11 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
+    "admin_interface",  # django-admin-interface (tem que ficar antes do django.contrib.admin)
+    "colorfield",       # django-admin-interface (tem que ficar antes do django.contrib.admin)
     "django.contrib.admin",
 ]
+
 THIRD_PARTY_APPS = [
     "crispy_forms",
     "allauth",

@@ -39,3 +39,7 @@ django-filter==2.2.0
 
 # https://pypi.org/project/drf_base64/
 drf-base64==2.0
+
+# Para melhoria da aparência do Django Admin
+# https://github.com/fabiocaccamo/django-admin-interface
+django-admin-interface==0.12.1
