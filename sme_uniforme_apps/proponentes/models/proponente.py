@@ -42,8 +42,7 @@ class Proponente(ModeloBase):
     )
 
     cnpj = models.CharField(
-        "CNPJ", max_length=20, validators=[cnpj_validation]
-        , blank=True, null=True, default="", unique=True
+        "CNPJ", max_length=20, validators=[cnpj_validation], blank=True, null=True, default="", unique=True
     )
     razao_social = models.CharField("Razão Social", max_length=255, blank=True, null=True)
 
@@ -76,13 +75,12 @@ class Proponente(ModeloBase):
     )
 
     telefone = models.CharField(
-        "Telefone", max_length=20, validators=[phone_validation]
-        , blank=True, null=True, default=""
+        "Telefone", max_length=20, validators=[phone_validation], blank=True, null=True, default=""
     )
 
     email = models.CharField(
-        "E-mail", max_length=255, validators=[validators.EmailValidator()]
-        , blank=True, null=True, default="", unique=True
+        "E-mail", max_length=255, validators=[validators.EmailValidator()], blank=True, null=True, default="",
+        unique=True
     )
 
     responsavel = models.CharField("Responsável", max_length=255, blank=True, null=True)

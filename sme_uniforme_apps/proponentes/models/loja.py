@@ -22,8 +22,7 @@ class Loja(ModeloBase):
     numero_iptu = models.CharField("Numero IPTU", max_length=20, blank=True, default="")
 
     telefone = models.CharField(
-        "Telefone", max_length=20, validators=[phone_validation]
-        , blank=True, null=True, default=""
+        "Telefone", max_length=20, validators=[phone_validation], blank=True, null=True, default=""
     )
 
     def __str__(self):

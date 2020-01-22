@@ -36,5 +36,3 @@ class OfertaDeUniformeAdmin(admin.ModelAdmin):
     ordering = ('proponente',)
     search_fields = ('proponente__uuid', 'uniforme__nome',)
     list_filter = ('uniforme', )
-
-
