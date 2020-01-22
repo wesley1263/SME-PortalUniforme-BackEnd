@@ -42,4 +42,4 @@ drf-base64==2.0
 
 # Para melhoria da aparência do Django Admin
 # https://github.com/fabiocaccamo/django-admin-interface
-django-admin-interface==0.12.1
+django-admin-interface==0.12.0
