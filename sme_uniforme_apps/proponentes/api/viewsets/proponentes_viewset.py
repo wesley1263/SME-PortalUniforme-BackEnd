@@ -24,7 +24,7 @@ class ProponentesViewSet(viewsets.ModelViewSet):
     search_fields = ('uuid', 'cnpj')
 
     def get_queryset(self):
-        return self.proponentes_queryset
+        return self.queryset
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
