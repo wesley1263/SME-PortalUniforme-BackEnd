@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.fixture
 def fake_user(client, django_user_model):
     password = 'teste'
