@@ -115,7 +115,6 @@ class Proponente(ModeloBase):
     def __str__(self):
         return f"{self.responsavel} - {self.email} - {self.telefone}"
 
-
     @property
     def protocolo(self):
         return f'{self.uuid.urn[9:17].upper()}'
@@ -157,4 +156,3 @@ def proponente_pre_save(instance, **kwargs):
         instance.status = Proponente.STATUS_BLOQUEADO
     else:
         instance.status = Proponente.STATUS_INSCRITO
-
