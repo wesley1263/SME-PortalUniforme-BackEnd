@@ -67,3 +67,12 @@ def oferta_de_uniforme(proponente, uniforme_calca):
             uniforme=uniforme_calca,
             preco=100.35
         )
+
+
+@pytest.fixture
+def lista_negra():
+    return baker.make(
+        'ListaNegra',
+        cnpj='00.529.476/0001-14',
+        razao_social='Teste',
+    )

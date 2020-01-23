@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import (Proponente, OfertaDeUniforme, Loja, Anexo)
+from .models import (Proponente, OfertaDeUniforme, Loja, Anexo, ListaNegra)
 
 
 class UniformesFornecidosInLine(admin.TabularInline):
@@ -36,3 +36,10 @@ class OfertaDeUniformeAdmin(admin.ModelAdmin):
     ordering = ('proponente',)
     search_fields = ('proponente__uuid', 'uniforme__nome',)
     list_filter = ('uniforme', )
+
+
+@admin.register(ListaNegra)
+class ListaNegraAdmin(admin.ModelAdmin):
+    list_display = ('cnpj', 'razao_social')
+    ordering = ('razao_social',)
+    search_fields = ('cnpj', 'razao_social')
