@@ -3,6 +3,8 @@ from django.core import validators
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from brazilnum.cnpj import validate_cnpj
+
 from .validators import phone_validation, cep_validation, cnpj_validation
 from sme_uniforme_apps.core.models_abstracts import ModeloBase
 
@@ -97,6 +99,14 @@ class Proponente(ModeloBase):
     @property
     def arquivos_anexos(self):
         return self.anexos.all()
+
+    @classmethod
+    def cnpj_ja_cadastrado(cls, cnpj):
+        return cls.objects.filter(cnpj=cnpj).exists()
+
+    @staticmethod
+    def cnpj_valido(cnpj):
+        return validate_cnpj(cnpj)
 
     class Meta:
         verbose_name = "Proponente"
