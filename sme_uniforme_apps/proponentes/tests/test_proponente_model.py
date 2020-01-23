@@ -48,3 +48,21 @@ def test_protocolo(proponente):
     protocolo = proponente.uuid.urn[9:17].upper()
     assert proponente.protocolo == protocolo
 
+
+def test_cnpj_ja_cadastrado_resultado_positivo(proponente):
+    assert Proponente.cnpj_ja_cadastrado(proponente.cnpj)
+
+
+def test_cnpj_ja_cadastrado_resultado_negativo(proponente):
+    cnpj_nao_cadastrado = '73.110.385/0001-13'
+    assert not Proponente.cnpj_ja_cadastrado(cnpj_nao_cadastrado)
+
+
+def test_cnpj_valido_resultado_positivo():
+    cnpj_valido = '73.110.385/0001-13'
+    assert Proponente.cnpj_valido(cnpj_valido)
+
+
+def test_cnpj_valido_resultado_negativo():
+    cnpj_invalido = '73.110.385/0001-00'
+    assert not Proponente.cnpj_valido(cnpj_invalido)
