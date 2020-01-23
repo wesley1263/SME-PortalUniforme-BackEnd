@@ -155,3 +155,6 @@ def proponente_post_save(instance, created, **kwargs):
 def proponente_pre_save(instance, **kwargs):
     if instance.cnpj and cnpj_esta_bloqueado(instance.cnpj):
         instance.status = Proponente.STATUS_BLOQUEADO
+    else:
+        instance.status = Proponente.STATUS_INSCRITO
+
