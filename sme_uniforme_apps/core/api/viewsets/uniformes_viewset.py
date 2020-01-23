@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
-
 
 from ..serializers.uniforme_serializer import UniformeSerializer, UniformeLookUpSerializer
 from ...models import Uniforme
@@ -10,11 +10,9 @@ from ...models import Uniforme
 
 class UniformesViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'id'
-
     queryset = Uniforme.objects.all()
-
     serializer_class = UniformeSerializer
-
+    permission_classes = [AllowAny]
     filter_backends = (SearchFilter, OrderingFilter)
     ordering_fields = ('nome',)
     search_fields = ('uuid', 'id', 'nome')

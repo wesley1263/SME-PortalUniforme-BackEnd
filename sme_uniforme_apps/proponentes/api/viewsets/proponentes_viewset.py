@@ -13,14 +13,11 @@ from ...models import Proponente
 
 
 class ProponentesViewSet(viewsets.ModelViewSet):
+
     permission_classes = [AllowAny]
     lookup_field = 'uuid'
-    proponentes_queryset = Proponente.objects.all()
-
-    queryset = proponentes_queryset
-
+    queryset = Proponente.objects.all()
     serializer_class = ProponenteSerializer
-
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = ('end_uf', )
     ordering_fields = ('razao_social',)
