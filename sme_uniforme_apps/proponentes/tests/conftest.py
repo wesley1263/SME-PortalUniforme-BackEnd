@@ -22,6 +22,11 @@ def proponente():
 
 
 @pytest.fixture
+def cnpj_bloqueado():
+    return '00.529.476/0001-14'
+
+
+@pytest.fixture
 def uniforme_calca():
     return baker.make('Uniforme', nome='Calça')
 
@@ -70,9 +75,25 @@ def oferta_de_uniforme(proponente, uniforme_calca):
 
 
 @pytest.fixture
-def lista_negra():
+def lista_negra(cnpj_bloqueado):
     return baker.make(
         'ListaNegra',
-        cnpj='00.529.476/0001-14',
-        razao_social='Teste',
+        cnpj=cnpj_bloqueado,
+        razao_social='Teste Bloqueado',
+    )
+
+
+@pytest.fixture
+def proponente_bloqueado(cnpj_bloqueado, lista_negra):
+    return baker.make(
+        'Proponente',
+        cnpj=cnpj_bloqueado,
+        razao_social='Teste Bloqueado',
+        end_logradouro='Rua Bloqueio, 123 apt. 101 Centro',
+        end_cidade='São Paulo',
+        end_uf='SP',
+        end_cep='99999-000',
+        telefone='(99) 99999-8888',
+        email='bloqueado@teste.com',
+        responsavel='José Bloqueio da Silva',
     )

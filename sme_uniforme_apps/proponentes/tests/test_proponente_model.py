@@ -24,6 +24,7 @@ def test_instance_model(proponente):
     assert model.alterado_em
     assert model.uuid
     assert model.id
+    assert model.status
 
 
 def test_srt_model(proponente):
@@ -39,7 +40,8 @@ def test_admin():
     model_admin = ProponenteAdmin(Proponente, admin.site)
     # pylint: disable=W0212
     assert admin.site._registry[Proponente]
-    assert model_admin.list_display == ('protocolo', 'cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em')
+    assert model_admin.list_display == (
+        'protocolo', 'cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em', 'status')
     assert model_admin.ordering == ('-alterado_em',)
     assert model_admin.search_fields == ('uuid', 'cnpj', 'razao_social', 'responsavel')
 
@@ -66,3 +68,7 @@ def test_cnpj_valido_resultado_positivo():
 def test_cnpj_valido_resultado_negativo():
     cnpj_invalido = '73.110.385/0001-00'
     assert not Proponente.cnpj_valido(cnpj_invalido)
+
+
+def test_proponente_status_default_inscrito(proponente):
+    assert proponente.status == Proponente.STATUS_INSCRITO

@@ -1,12 +1,14 @@
 from django.db import models
 from django.core import validators
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
 from brazilnum.cnpj import validate_cnpj
 
 from .validators import phone_validation, cep_validation, cnpj_validation
 from sme_uniforme_apps.core.models_abstracts import ModeloBase
+
+from ..services import cnpj_esta_bloqueado
 
 from ...core.models.meio_de_recebimento import MeioDeRecebimento
 from ..tasks import enviar_email_confirmacao_cadastro
@@ -41,6 +43,20 @@ class Proponente(ModeloBase):
         ('SE', 'Sergipe'),
         ('SP', 'São Paulo'),
         ('TO', 'Tocantins'),
+    )
+
+    # Status Choice
+    STATUS_INSCRITO = 'INSCRITO'
+    STATUS_BLOQUEADO = 'BLOQUEADO'
+
+    STATUS_NOMES = {
+        STATUS_INSCRITO: 'Inscrito',
+        STATUS_BLOQUEADO: 'Bloqueado',
+    }
+
+    STATUS_CHOICES = (
+        (STATUS_INSCRITO, STATUS_NOMES[STATUS_INSCRITO]),
+        (STATUS_BLOQUEADO, STATUS_NOMES[STATUS_BLOQUEADO]),
     )
 
     cnpj = models.CharField(
@@ -89,6 +105,13 @@ class Proponente(ModeloBase):
 
     meios_de_recebimento = models.ManyToManyField(MeioDeRecebimento, related_name='proponentes_que_aceitam')
 
+    status = models.CharField(
+        'status',
+        max_length=15,
+        choices=STATUS_CHOICES,
+        default=STATUS_INSCRITO
+    )
+
     def __str__(self):
         return f"{self.responsavel} - {self.email} - {self.telefone}"
 
@@ -108,12 +131,28 @@ class Proponente(ModeloBase):
     def cnpj_valido(cnpj):
         return validate_cnpj(cnpj)
 
+    @classmethod
+    def bloqueia_por_cnpj(cls, cnpj):
+        Proponente.objects.filter(cnpj=cnpj).update(status=Proponente.STATUS_BLOQUEADO)
+
+    @classmethod
+    def desbloqueia_por_cnpj(cls, cnpj):
+        Proponente.objects.filter(cnpj=cnpj).update(status=Proponente.STATUS_INSCRITO)
+
     class Meta:
         verbose_name = "Proponente"
         verbose_name_plural = "Proponentes"
 
 
 @receiver(post_save, sender=Proponente)
-def contrato_post_save(instance, created, **kwargs):
+def proponente_post_save(instance, created, **kwargs):
     if created and instance and instance.email:
         enviar_email_confirmacao_cadastro.delay(instance.email, {'protocolo': instance.protocolo})
+
+
+@receiver(pre_save, sender=Proponente)
+def proponente_pre_save(instance, **kwargs):
+    if instance.cnpj and cnpj_esta_bloqueado(instance.cnpj):
+        instance.status = Proponente.STATUS_BLOQUEADO
+    else:
+        instance.status = Proponente.STATUS_INSCRITO

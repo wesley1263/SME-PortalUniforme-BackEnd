@@ -2,6 +2,8 @@ from django.contrib import admin
 
 from .models import (Proponente, OfertaDeUniforme, Loja, Anexo, ListaNegra)
 
+from .services import cnpj_esta_bloqueado
+
 
 class UniformesFornecidosInLine(admin.TabularInline):
     model = OfertaDeUniforme
@@ -20,9 +22,22 @@ class AnexosInLine(admin.TabularInline):
 
 @admin.register(Proponente)
 class ProponenteAdmin(admin.ModelAdmin):
-    list_display = ('protocolo',  'cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em')
+    def verifica_bloqueio_cnpj(self, request, queryset):
+        for proponente in queryset.all():
+            bloqueado = cnpj_esta_bloqueado(proponente.cnpj)
+            if (bloqueado and proponente.status == Proponente.STATUS_INSCRITO) or (
+                    not bloqueado and proponente.status == Proponente.STATUS_BLOQUEADO):
+                proponente.save()
+
+        self.message_user(request, "Bloqueios verificados.")
+
+    verifica_bloqueio_cnpj.short_description = 'Verifica bloqueio de CNPJs'
+
+    actions = ['verifica_bloqueio_cnpj']
+    list_display = ('protocolo', 'cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em', 'status')
     ordering = ('-alterado_em',)
     search_fields = ('uuid', 'cnpj', 'razao_social', 'responsavel')
+    list_filter = ('status',)
     inlines = [UniformesFornecidosInLine, LojasInLine, AnexosInLine]
 
 
@@ -32,10 +47,10 @@ class OfertaDeUniformeAdmin(admin.ModelAdmin):
     def protocolo(oferta):
         return oferta.proponente.protocolo
 
-    list_display = ('protocolo', 'proponente',  'uniforme', 'preco')
+    list_display = ('protocolo', 'proponente', 'uniforme', 'preco')
     ordering = ('proponente',)
     search_fields = ('proponente__uuid', 'uniforme__nome',)
-    list_filter = ('uniforme', )
+    list_filter = ('uniforme',)
 
 
 @admin.register(ListaNegra)
