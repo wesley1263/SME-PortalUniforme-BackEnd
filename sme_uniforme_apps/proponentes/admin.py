@@ -20,9 +20,10 @@ class AnexosInLine(admin.TabularInline):
 
 @admin.register(Proponente)
 class ProponenteAdmin(admin.ModelAdmin):
-    list_display = ('protocolo',  'cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em')
+    list_display = ('protocolo',  'cnpj', 'razao_social', 'responsavel', 'telefone', 'email', 'alterado_em', 'status')
     ordering = ('-alterado_em',)
     search_fields = ('uuid', 'cnpj', 'razao_social', 'responsavel')
+    list_filter = ('status',)
     inlines = [UniformesFornecidosInLine, LojasInLine, AnexosInLine]
 
 

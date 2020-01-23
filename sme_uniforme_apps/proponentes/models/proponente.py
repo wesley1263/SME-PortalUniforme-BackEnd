@@ -43,6 +43,20 @@ class Proponente(ModeloBase):
         ('TO', 'Tocantins'),
     )
 
+    # Status Choice
+    STATUS_INSCRITO = 'INSCRITO'
+    STATUS_BLOQUEADO = 'BLOQUEADO'
+
+    STATUS_NOMES = {
+        STATUS_INSCRITO: 'Inscrito',
+        STATUS_BLOQUEADO: 'Bloqueado',
+    }
+
+    STATUS_CHOICES = (
+        (STATUS_INSCRITO, STATUS_NOMES[STATUS_INSCRITO]),
+        (STATUS_BLOQUEADO, STATUS_NOMES[STATUS_BLOQUEADO]),
+    )
+
     cnpj = models.CharField(
         "CNPJ", max_length=20, validators=[cnpj_validation], blank=True, null=True, default="", unique=True
     )
@@ -88,6 +102,13 @@ class Proponente(ModeloBase):
     responsavel = models.CharField("Responsável", max_length=255, blank=True, null=True)
 
     meios_de_recebimento = models.ManyToManyField(MeioDeRecebimento, related_name='proponentes_que_aceitam')
+
+    status = models.CharField(
+        'status',
+        max_length=15,
+        choices=STATUS_CHOICES,
+        default=STATUS_INSCRITO
+    )
 
     def __str__(self):
         return f"{self.responsavel} - {self.email} - {self.telefone}"
