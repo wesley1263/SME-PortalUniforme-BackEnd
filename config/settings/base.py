@@ -95,6 +95,7 @@ LOCAL_APPS = [
     "sme_uniforme_apps.robo.apps.RoboConfig",
     "sme_uniforme_apps.core.apps.CoreConfig",
     "sme_uniforme_apps.proponentes.apps.ProponentesConfig",
+    "sme_uniforme_apps.alunos.apps.AlunosConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
