@@ -2,7 +2,6 @@ from django.core import validators
 from django.db import models
 
 from sme_uniforme_apps.core.models_abstracts import ModeloBase
-from .aluno import Aluno
 
 
 class Responsavel(ModeloBase):
@@ -40,8 +39,6 @@ class Responsavel(ModeloBase):
         (VINCULO_OUTRO, VINCULO_NOMES[VINCULO_OUTRO]),
     )
 
-    cod_eol_aluno = models.ManyToManyField(Aluno, related_name='Alunos')
-
     vinculo = models.CharField(
         'status',
         max_length=15,
@@ -60,7 +57,7 @@ class Responsavel(ModeloBase):
     )
     # TODO Necessário adicionar atriburo celular. Necessário saber se será lista ou objetos.
 
-    data_nascimento = models.DateField("Data de Nascimento")
+    data_nascimento = models.DateField("Data de Nascimento", blank=True, null=True)
 
     nome_mae = models.CharField("Nome da Mãe do Responsável", max_length=255, blank=True, null=True)
 

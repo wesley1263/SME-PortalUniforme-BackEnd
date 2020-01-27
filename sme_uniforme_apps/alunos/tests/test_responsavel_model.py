@@ -8,7 +8,6 @@ pytestmark = pytest.mark.django_db
 def test_instance_model(responsavel):
     model = responsavel
     assert isinstance(model, Responsavel)
-    assert model.cod_eol_aluno
     assert model.nome
     assert model.vinculo
     assert model.cpf
