@@ -85,6 +85,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "django_celery_beat",
     "des",
+    "auditlog",
     "rest_framework_swagger",
     "django_use_email_as_username",
     "django_filters",
@@ -152,6 +153,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "auditlog.middleware.AuditlogMiddleware",
 ]
 
 # STATIC
