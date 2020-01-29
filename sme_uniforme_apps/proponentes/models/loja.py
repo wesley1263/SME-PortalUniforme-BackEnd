@@ -1,5 +1,8 @@
 from django.db import models
 
+from auditlog.models import AuditlogHistoryField
+from auditlog.registry import auditlog
+
 from .validators import phone_validation, cep_validation
 from sme_uniforme_apps.core.models_abstracts import ModeloBase
 
@@ -7,6 +10,7 @@ from .proponente import Proponente
 
 
 class Loja(ModeloBase):
+    historico = AuditlogHistoryField()
 
     proponente = models.ForeignKey(Proponente, on_delete=models.CASCADE, blank=True, null=True, related_name='lojas')
 
@@ -31,3 +35,6 @@ class Loja(ModeloBase):
     class Meta:
         verbose_name = "Loja física"
         verbose_name_plural = "Lojas físicas"
+
+
+auditlog.register(Loja)

@@ -5,6 +5,9 @@ from django.dispatch import receiver
 
 from brazilnum.cnpj import validate_cnpj
 
+from auditlog.models import AuditlogHistoryField
+from auditlog.registry import auditlog
+
 from .validators import phone_validation, cep_validation, cnpj_validation
 from sme_uniforme_apps.core.models_abstracts import ModeloBase
 
@@ -15,6 +18,7 @@ from ..tasks import enviar_email_confirmacao_cadastro
 
 
 class Proponente(ModeloBase):
+    historico = AuditlogHistoryField()
 
     UF_CHOICES = (
         ('AC', 'Acre'),
@@ -156,3 +160,6 @@ def proponente_pre_save(instance, **kwargs):
         instance.status = Proponente.STATUS_BLOQUEADO
     else:
         instance.status = Proponente.STATUS_INSCRITO
+
+
+auditlog.register(Proponente)
