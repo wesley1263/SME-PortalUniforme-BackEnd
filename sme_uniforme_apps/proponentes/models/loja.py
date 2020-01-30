@@ -17,7 +17,7 @@ class Loja(ModeloBase):
     cep = models.CharField("CEP", max_length=20, validators=[cep_validation])
     endereco = models.CharField("Logradouro", max_length=255)
     bairro = models.CharField("Bairro", max_length=255)
-    numero = models.CharField("Numero", max_length=255)
+    numero = models.CharField("Numero", max_length=255, blank=True, default="")
     complemento = models.CharField("Complemento", max_length=255, null=True, blank=True)
 
     latitude = models.CharField("Latitude", max_length=255, blank=True, default="")
