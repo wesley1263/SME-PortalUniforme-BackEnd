@@ -30,7 +30,7 @@ class Loja(ModeloBase):
     )
 
     def __str__(self):
-        return f"{self.proponente.razao_social} - {self.endereco}"
+        return f"{self.proponente.razao_social if self.proponente else ''} - {self.endereco}"
 
     class Meta:
         verbose_name = "Loja física"

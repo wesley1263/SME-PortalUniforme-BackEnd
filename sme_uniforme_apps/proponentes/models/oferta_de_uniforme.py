@@ -17,7 +17,7 @@ class OfertaDeUniforme(ModeloBase):
     preco = models.DecimalField('Preço', max_digits=9, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return f"{self.uniforme.nome} - {self.preco} - {self.proponente.razao_social}"
+        return f"{self.uniforme.nome} - {self.preco} - {self.proponente.razao_social if self.proponente else ''}"
 
     class Meta:
         verbose_name = "oferta de uniforme"
